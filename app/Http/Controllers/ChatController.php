@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Models\Message;
 
+use App\Events\NewChat;
+
 
 class ChatController extends Controller
 {
@@ -29,6 +31,8 @@ class ChatController extends Controller
 
         $message->save();
 
+        broadcast(new NewChat($message))->toOthers();
+        
         return $message;
     }
 }

@@ -58,4 +58,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function chats() {
+        return $this->belongsToMany('App\Models\Chat');
+    }
+
+    public function messages() {
+        return $this->hasMany('App\Models\Message');
+    }
 }

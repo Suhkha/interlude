@@ -38,7 +38,29 @@ export default {
             messages: []
         }
     },
+    watch:{
+        currentChat(actualChat, oldChat){
+            if(oldChat.id){
+                this.disconnect(oldChat);
+            }
+            this.connect();
+        }
+    },
     methods: {
+        connect() {
+            if(this.currentChat.id) {
+                let displayMessages = this;
+                this.getMessages();
+
+                window.Echo.private("chat-" + this.currentChat.id)
+                    .listen('.message.new', e => {
+                    displayMessages.getMessages();
+                })
+            }
+        },
+        disconnect(chat) {
+            window.Echo.leave("chat-" + chat.id)
+        },
         getChats() {
             axios.get('chats').then(response => {
                 this.chats = response.data;
@@ -50,13 +72,12 @@ export default {
         },
         setChat(chat) {
             this.currentChat = chat;
-            this.getMessages()
         },
 
         getMessages() {
-            console.log(this.currentChat.id)
             axios.get('chat/'+ this.currentChat.id +'/messages/').then(response => {
                 this.messages = response.data;
+                console.log(this.messages);
             }).catch(error => {
                 console.log(error)
             });

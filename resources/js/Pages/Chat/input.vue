@@ -33,7 +33,7 @@ export default {
             }).then(response => {
                 if(response.status == 201) {
                     this.message = '';
-                    this.$emit('messageent')
+                    this.$emit('messageSent')
                 }
             }).catch(error => {
                 console.log(error)

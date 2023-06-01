@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\ChatController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,4 +34,13 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::get('/chat', function () {
+        return Inertia::render('Chat/main');
+    })->name('chat');
+
+
+    Route::get('/chats', [ChatController::class, 'chats']);
+    Route::get('/chat/{chatId}/messages', [ChatController::class, 'messages']);
+    Route::post('/chat/{chatId}/message', [ChatController::class, 'storeMessage']);
 });

@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-
+use App\Console\Commands\SendChatHistory;
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+Artisan::command('send:chatHistory', function () {
+    try {
+        $sendChatHistory = new SendChatHistory;
+        $sendChatHistory->handle();
+        $this->info('Comando ejecutado correctamente.');
+    } catch (\Exception $e) {
+        $this->error('Error al ejecutar el comando: ' . $e->getMessage());
+        throw $e;
+    }
+})->purpose('Enviará al finalizar el día el historial del chat a cada usuario');

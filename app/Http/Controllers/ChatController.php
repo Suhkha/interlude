@@ -6,7 +6,6 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Models\Message;
-
 use App\Events\NewChat;
 
 

@@ -2,6 +2,8 @@
 
 Este es un proyecto de chat desarrollado con Laravel, Jetstream, Vue.js, Laravel Pusher y Echo. Implementando un chat en tiempo real donde los usuarios pueden comunicarse entre sí.
 
+Para el envío de correos se hizo uso de Mailtrap.io
+
 ## Instalación
 
 1- Clonar el repositorio del proyecto y ejecutar:
